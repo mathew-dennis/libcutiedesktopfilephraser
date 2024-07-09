@@ -23,3 +23,10 @@ Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}, libcutiephonenumber (= ${binary:Version})
 Description: This package contains a phone number abstraction library for Cutie. (Development headers)
+
+Package: qml6-module-cutiephonenumber
+Architecture: any
+Multi-Arch: foreign
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, libcutiephonenumber (= ${binary:Version})
+Description: This package contains a phone number abstraction library for Cutie. (QML module)
