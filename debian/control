@@ -1,6 +1,6 @@
-Source: libcutiephonenumber
+Source: libcutiedesktopfilephraser
 Section: libs
-Maintainer: Erik Inkinen <erik.inkinen@erikinkinen.fi>
+Maintainer: Mathew Dennis
 Priority: optional
 Build-Depends: pkg-kde-tools,
                cmake,
@@ -10,23 +10,23 @@ Build-Depends: pkg-kde-tools,
                pkg-config,
 Standards-Version: 4.5.1
 
-Package: libcutiephonenumber
+Package: libcutiedesktopfilephraser
 Architecture: any
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: This package contains a phone number abstraction library for Cutie.
 
-Package: libcutiephonenumber-dev
+Package: libcutiedesktopfilephraser-dev
 Architecture: any
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}, libcutiephonenumber (= ${binary:Version})
+Depends: ${misc:Depends}, ${shlibs:Depends}, libcutiedesktopfilephraser (= ${binary:Version})
 Description: This package contains a phone number abstraction library for Cutie. (Development headers)
 
-Package: qml6-module-cutiephonenumber
+Package: qml6-module-cutiedesktopfilephraser
 Architecture: any
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}, libcutiephonenumber (= ${binary:Version})
+Depends: ${misc:Depends}, ${shlibs:Depends}, cutiedesktopfilephraser (= ${binary:Version})
 Description: This package contains a phone number abstraction library for Cutie. (QML module)

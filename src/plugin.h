@@ -4,14 +4,14 @@
 #include <QtQml/qqml.h>
 #include <QtQml/QQmlExtensionPlugin>
 
-#include "cutiephonenumber.h"
+#include "cutiedesktopfilephraser.h"
 
-class CutiePhonenumberPlugin : public QQmlExtensionPlugin {
+class CutiedesktopfilephraserPlugin : public QQmlExtensionPlugin {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid FILE
-			  "cutiephonenumber.json")
+			  "cutiedesktopfilephraser.json")
     public:
-	explicit CutiePhonenumberPlugin()
+	explicit CutiedesktopfilephraserPlugin()
 	{
 	}
 
