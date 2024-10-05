@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cutiephonenumber VERSION 0.1 LANGUAGES CXX)
+project(cutiedesktopfilephraser VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -7,55 +7,55 @@ find_package(Qt6 REQUIRED COMPONENTS Core Quick)
 qt_standard_project_setup()
 
 set(lib_SOURCES
-    src/cutiephonenumber.h
-    src/cutiephonenumber.cpp)
+    src/cutiedesktopfilephraser.h
+    src/cutiedesktopfilephraser.cpp)
 
 set(plugin_SOURCES
     src/plugin.cpp src/plugin.h)
 
-qt6_add_library(cutiephonenumber
+qt6_add_library(cutiedesktopfilephraser
     SHARED ${lib_SOURCES}
 )
 
-qt6_add_qml_module(qmlcutiephonenumberplugin
-    URI Cutie.Phonenumber
+qt6_add_qml_module(qmlcutiedesktopfilephraserplugin
+    URI Cutie.Desktopfilephraser
     VERSION ${PROJECT_VERSION}
-    PLUGIN_TARGET qmlcutiephonenumberplugin
+    PLUGIN_TARGET qmlcutiedesktopfilephraserplugin
     NO_GENERATE_PLUGIN_SOURCE
     SOURCES
         ${plugin_SOURCES}
 )
 
-set_target_properties(cutiephonenumber PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(cutiephonenumber PROPERTIES SOVERSION 0)
-set_target_properties(cutiephonenumber PROPERTIES PUBLIC_HEADER src/cutiephonenumber.h)
+set_target_properties(cutiedesktopfilephraser PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(cutiedesktopfilephraser PROPERTIES SOVERSION 0)
+set_target_properties(cutiedesktopfilephraser PROPERTIES PUBLIC_HEADER src/cutiedesktopfilephraser.h)
 
-target_link_libraries(cutiephonenumber PUBLIC
+target_link_libraries(cutiedesktopfilephraser PUBLIC
     Qt::Core
     Qt::Quick
-    -lphonenumber
+    -lDesktopfilephraser
 )
 
-target_link_libraries(qmlcutiephonenumberplugin PUBLIC
+target_link_libraries(qmlcutiedesktopfilephraserplugin PUBLIC
     Qt::Core
     Qt::Quick
-    cutiephonenumber
+    cutiedesktopfilephraser
 )
 
-configure_file(src/cutiephonenumber.pc.in cutiephonenumber.pc @ONLY)
+configure_file(src/cutiedesktopfilephraser.pc.in cutiedesktopfilephraser.pc @ONLY)
 
-install(TARGETS cutiephonenumber
+install(TARGETS cutiedesktopfilephraser
     RUNTIME DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     BUNDLE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
-install(FILES ${CMAKE_BINARY_DIR}/cutiephonenumber.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+install(FILES ${CMAKE_BINARY_DIR}/cutiedesktopfilephraser.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
-install(TARGETS qmlcutiephonenumberplugin
-    RUNTIME DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Phonenumber"
-    BUNDLE DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Phonenumber"
-    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Phonenumber"
+install(TARGETS qmlcutiedesktopfilephraserplugin
+    RUNTIME DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Desktopfilephraser"
+    BUNDLE DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Desktopfilephraser"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/Desktopfilephraser"
 )
 
-install(DIRECTORY src/qml/Cutie/Phonenumber DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie")
+install(DIRECTORY src/qml/Cutie/Desktopfilephraser DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie")

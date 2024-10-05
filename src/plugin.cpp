@@ -3,7 +3,6 @@
 void CutieDesktopfilephraserPlugin::registerTypes(const char *uri)
 {
 	qmlRegisterSingletonType<CutieDesktopfilephraser>(
-		uri, 1, 0, "Cutiedesktopfilephraser",
+		uri, 1, 0, "CutieDesktopfilephraser",
 		&CutieDesktopfilephraser::provider);
-	qmlRegisterType<CutieDesktopfilephraser>(uri, 1, 0, "CutieDesktopfilephraser");
 }
