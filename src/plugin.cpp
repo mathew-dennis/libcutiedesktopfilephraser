@@ -1,8 +1,8 @@
 #include "plugin.h"
 
-void CutieDesktopfilephraserPlugin::registerTypes(const char *uri)
+void CutieDesktopFilePhraserPlugin::registerTypes(const char *uri)
 {
-	qmlRegisterSingletonType<CutieDesktopfilephraser>(
-		uri, 1, 0, "CutieDesktopfilephraser",
-		&CutieDesktopfilephraser::provider);
+    qmlRegisterSingletonType<CutieDesktopFilePhraser>(
+        uri, 1, 0, "CutieDesktopFilePhraser",
+        &CutieDesktopFilePhraser::provider);
 }
