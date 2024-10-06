@@ -19,7 +19,7 @@ public:
 	~CutieDesktopFilePhraser();
 
 	// Fetches all entries in a given directory
-	Q_INVOKABLE QVariantList fetchAllEntries(const QString &directory) const;
+	Q_INVOKABLE QVariantList fetchAllEntries() const;
 
 	// Fetches a single entry based on filename
 	Q_INVOKABLE QVariantMap fetchEntry(const QString &filePath) const;
