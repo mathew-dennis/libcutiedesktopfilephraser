@@ -1,4 +1,4 @@
-#include "cutiedesktopfilephraser_P.h"
+#include "cutiedesktopfilephraser_p.h"
 #include <QSettings>
 #include <QDir>
 #include <QFileInfo>
