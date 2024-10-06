@@ -12,6 +12,7 @@ CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
+	qDebug() << "fetchAllEntries() called, fetching entries from standard locations...";
     QVariantList entries;
 
     // Get standard application locations
