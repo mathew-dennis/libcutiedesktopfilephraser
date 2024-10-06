@@ -33,7 +33,6 @@ set_target_properties(cutiedesktopfilephraser PROPERTIES PUBLIC_HEADER src/cutie
 target_link_libraries(cutiedesktopfilephraser PUBLIC
     Qt::Core
     Qt::Quick
-    -lDesktopfilephraser
 )
 
 target_link_libraries(qmlcutiedesktopfilephraserplugin PUBLIC
