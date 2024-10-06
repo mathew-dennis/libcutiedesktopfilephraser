@@ -4,10 +4,10 @@
 #include <QFileInfo>
 
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
-	: QObject(parent), d_ptr(new CutieDesktopFilePhraserPrivate) {}
+    : QObject(parent), d_ptr(new CutieDesktopFilePhraserPrivate(this)) {}
 
 CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
-	delete d_ptr;
+    delete d_ptr;
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries(const QString &directory) const {
