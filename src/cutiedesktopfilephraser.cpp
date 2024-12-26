@@ -3,7 +3,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QTextStream>
+#include <QDebug>
 
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
     : QObject(parent), d_ptr(new CutieDesktopFilePhraserPrivate(this)) {}
@@ -13,50 +13,49 @@ CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
-    qDebug() << "App Details loading stage 3: fetchAllEntries() called, fetching entries from standard locations...";
+    qDebug() << "fetchAllEntries() called, returning fake data...";
+
     QVariantList entries;
 
-    // Get standard application locations
-    QStringList dataDirList = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-    qDebug() << "Application directories:" << dataDirList;
+    // Add some fake application entries
+    QVariantMap app1;
+    app1["Name"] = "Fake App 1";
+    app1["Exec"] = "/usr/bin/fakeapp1";
+    app1["Icon"] = "fakeapp1-icon";
+    app1["Type"] = "Application";
 
-    for (const QString &directory : dataDirList) {
-        QDir dir(directory);
-        if (dir.exists()) {
-            QStringList filters;
-            filters << "*.desktop";
-            QFileInfoList files = dir.entryInfoList(filters, QDir::Files);
+    QVariantMap app2;
+    app2["Name"] = "Fake App 2";
+    app2["Exec"] = "/usr/bin/fakeapp2";
+    app2["Icon"] = "fakeapp2-icon";
+    app2["Type"] = "Application";
 
-            for (const QFileInfo &fileInfo : files) {
-                QSettings desktopFile(fileInfo.absoluteFilePath(), QSettings::IniFormat);
-                QString desktopType = desktopFile.value("Desktop Entry/Type").toString();
+    QVariantMap app3;
+    app3["Name"] = "Fake App 3";
+    app3["Exec"] = "/usr/bin/fakeapp3";
+    app3["Icon"] = "fakeapp3-icon";
+    app3["Type"] = "Application";
 
-                if (desktopType == "Application") {
-                    QVariantMap appData;
-                    QStringList keys = desktopFile.allKeys();
-                    for (const QString &key : keys) {
-                        appData.insert(key, desktopFile.value(key));
-                    }
+    // Add the fake entries to the list
+    entries.append(app1);
+    entries.append(app2);
+    entries.append(app3);
 
-                    QString appHidden = desktopFile.value("Desktop Entry/Hidden").toString();
-                    QString appNoDisplay = desktopFile.value("Desktop Entry/NoDisplay").toString();
+    qDebug() << "Fake data prepared, returning:" << entries;
 
-                    if (appHidden != "true" && appNoDisplay != "true") {
-                        entries.append(appData);
-                    }
-                }
-            }
-        }
-    }
     return entries;
 }
 
 QVariantMap CutieDesktopFilePhraser::fetchEntry(const QString &filePath) const {
-    QSettings desktopFile(filePath, QSettings::IniFormat);
+    qDebug() << "fetchEntry() called with filePath:" << filePath;
+
+    // Return a fake single entry to simulate the function
     QVariantMap entry;
-    for (const QString &key : desktopFile.allKeys()) {
-        entry.insert(key, desktopFile.value(key));
-    }
+    entry["Name"] = "Single Fake App";
+    entry["Exec"] = "/usr/bin/singlefakeapp";
+    entry["Icon"] = "singlefakeapp-icon";
+    entry["Type"] = "Application";
+
     return entry;
 }
 
