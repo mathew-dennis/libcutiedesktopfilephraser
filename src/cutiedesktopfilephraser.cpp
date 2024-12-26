@@ -4,13 +4,19 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QTextStream>
+#include <QDebug>
 
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
-    : QObject(parent), d_ptr(new CutieDesktopFilePhraserPrivate(this)) {}
+    : QObject(parent) 
+{
+    qDebug() << "CutieDesktopFilePhraser module loaded."; 
+    d_ptr = new CutieDesktopFilePhraserPrivate(this); 
+}
 
 CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
     delete d_ptr;
 }
+
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
     qDebug() << "App Details loading stage 3: fetchAllEntries() called, fetching entries from standard locations...";
