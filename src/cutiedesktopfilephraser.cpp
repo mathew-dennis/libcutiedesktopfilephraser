@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QTextStream>
 
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
     : QObject(parent), d_ptr(new CutieDesktopFilePhraserPrivate(this)) {}
@@ -12,11 +13,12 @@ CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
-	qDebug() << "fetchAllEntries() called, fetching entries from standard locations...";
+    qDebug() << "App Details loading stage 3: fetchAllEntries() called, fetching entries from standard locations...";
     QVariantList entries;
 
     // Get standard application locations
     QStringList dataDirList = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    qDebug() << "Application directories:" << dataDirList;
 
     for (const QString &directory : dataDirList) {
         QDir dir(directory);
@@ -27,11 +29,22 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
 
             for (const QFileInfo &fileInfo : files) {
                 QSettings desktopFile(fileInfo.absoluteFilePath(), QSettings::IniFormat);
-                QVariantMap entry;
-                for (const QString &key : desktopFile.allKeys()) {
-                    entry.insert(key, desktopFile.value(key));
+                QString desktopType = desktopFile.value("Desktop Entry/Type").toString();
+
+                if (desktopType == "Application") {
+                    QVariantMap appData;
+                    QStringList keys = desktopFile.allKeys();
+                    for (const QString &key : keys) {
+                        appData.insert(key, desktopFile.value(key));
+                    }
+
+                    QString appHidden = desktopFile.value("Desktop Entry/Hidden").toString();
+                    QString appNoDisplay = desktopFile.value("Desktop Entry/NoDisplay").toString();
+
+                    if (appHidden != "true" && appNoDisplay != "true") {
+                        entries.append(appData);
+                    }
                 }
-                entries.append(entry);
             }
         }
     }
@@ -39,21 +52,21 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
 }
 
 QVariantMap CutieDesktopFilePhraser::fetchEntry(const QString &filePath) const {
-	QSettings desktopFile(filePath, QSettings::IniFormat);
-	QVariantMap entry;
-	for (const QString &key : desktopFile.allKeys()) {
-		entry.insert(key, desktopFile.value(key));
-	}
-	return entry;
+    QSettings desktopFile(filePath, QSettings::IniFormat);
+    QVariantMap entry;
+    for (const QString &key : desktopFile.allKeys()) {
+        entry.insert(key, desktopFile.value(key));
+    }
+    return entry;
 }
 
 CutieDesktopFilePhraser *CutieDesktopFilePhraser::instance() {
-	static CutieDesktopFilePhraser instance;
-	return &instance;
+    static CutieDesktopFilePhraser instance;
+    return &instance;
 }
 
 QObject *CutieDesktopFilePhraser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
-	Q_UNUSED(engine)
-	Q_UNUSED(scriptEngine)
-	return CutieDesktopFilePhraser::instance();
+    Q_UNUSED(engine)
+    Q_UNUSED(scriptEngine)
+    return CutieDesktopFilePhraser::instance();
 }
