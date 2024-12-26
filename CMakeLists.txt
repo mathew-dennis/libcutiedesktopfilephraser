@@ -24,6 +24,7 @@ qt6_add_qml_module(qmlcutiedesktopfilephraserplugin
     NO_GENERATE_PLUGIN_SOURCE
     SOURCES
         ${plugin_SOURCES}
+        OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/qml
 )
 
 set_target_properties(cutiedesktopfilephraser PROPERTIES VERSION ${PROJECT_VERSION})
