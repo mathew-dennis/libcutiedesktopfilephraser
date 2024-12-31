@@ -61,6 +61,7 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
             }
         }
     }
+    qDebug() << "Number of entries fetched by fetchAllEntries() :" << entries.size();
     return entries;
 }
 
