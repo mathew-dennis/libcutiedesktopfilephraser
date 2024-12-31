@@ -17,6 +17,9 @@ CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
     delete d_ptr;
 }
 
+CutieDesktopFilePhraserPrivate::CutieDesktopFilePhraserPrivate(CutieDesktopFilePhraser *q) : q_ptr(q) {
+    // Constructor implementation
+}
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
     qDebug() << "App Details loading stage 3: fetchAllEntries() called, fetching entries from standard locations...";
