@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 project(cutiedesktopfilephraser VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-qt_policy(SET QTP0001 NEW)
 
 # Include necessary modules
 include(GNUInstallDirs)
