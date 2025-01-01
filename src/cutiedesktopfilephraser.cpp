@@ -26,7 +26,7 @@ CutieDesktopFilePhraserPrivate::~CutieDesktopFilePhraserPrivate() {
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
-    qDebug() << "App Details loading stage 3: fetchAllEntries() called, fetching entries from standard locations...";
+    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : called";
     QVariantList entries;
 
     // Get standard application locations
@@ -61,7 +61,7 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
             }
         }
     }
-    qDebug() << "Number of entries fetched by fetchAllEntries() :" << entries.size();
+    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : number of entries found = " << entries.size();
     return entries;
 }
 
