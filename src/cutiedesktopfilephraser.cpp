@@ -31,7 +31,7 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
 
     // Get standard application locations
     QStringList dataDirList = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-    qDebug() << "Application directories:" << dataDirList;
+    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : Application directories= " << dataDirList;
 
     for (const QString &directory : dataDirList) {
         QDir dir(directory);
