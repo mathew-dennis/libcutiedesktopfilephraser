@@ -9,7 +9,7 @@
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
     : QObject(parent) 
 {
-    qDebug() << "CutieDesktopFilePhraser module loaded."; 
+    qDebug() << "module - CutieDesktopFilePhraser :  loaded."; 
     d_ptr = new CutieDesktopFilePhraserPrivate(this); 
 }
 
