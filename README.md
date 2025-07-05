@@ -1,4 +1,4 @@
-# libcutiephonenumber
+# libcutiedesktopfilephraser
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/cutie-shell/libcutiedesktopfilephraser/tree/cutie.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/cutie-shell/libcutiedesktopfilephraser/tree/cutie)
 
