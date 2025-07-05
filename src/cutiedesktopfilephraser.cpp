@@ -65,15 +65,6 @@ QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
     return entries;
 }
 
-QVariantMap CutieDesktopFilePhraser::fetchEntry(const QString &filePath) const {
-    QSettings desktopFile(filePath, QSettings::IniFormat);
-    QVariantMap entry;
-    for (const QString &key : desktopFile.allKeys()) {
-        entry.insert(key, desktopFile.value(key));
-    }
-    return entry;
-}
-
 CutieDesktopFilePhraser *CutieDesktopFilePhraser::instance() {
     static CutieDesktopFilePhraser instance;
     return &instance;

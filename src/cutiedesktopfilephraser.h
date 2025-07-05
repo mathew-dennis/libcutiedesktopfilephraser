@@ -21,9 +21,6 @@ public:
 	// Fetches all entries in a given directory
 	Q_INVOKABLE QVariantList fetchAllEntries() const;
 
-	// Fetches a single entry based on filename
-	Q_INVOKABLE QVariantMap fetchEntry(const QString &filePath) const;
-
 	static CutieDesktopFilePhraser *instance();
 	static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
