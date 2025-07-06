@@ -9,18 +9,18 @@
 #include <QJSEngine>
 
 class CutieDesktopFilePhraser : public QObject {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit CutieDesktopFilePhraser(QObject *parent = nullptr);
-	~CutieDesktopFilePhraser();
+    explicit CutieDesktopFilePhraser(QObject *parent = nullptr);
+    ~CutieDesktopFilePhraser();
 
-	// Fetches all entries in a given directory
-	Q_INVOKABLE QVariantList fetchAllEntries() const;
+    // Fetches all entries in a given directory
+    Q_INVOKABLE QVariantList fetchAllEntries() const;
 
-	static CutieDesktopFilePhraser *instance();
-	static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    static CutieDesktopFilePhraser *instance();
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
 private:
-	Q_DISABLE_COPY(CutieDesktopFilePhraser)
+    Q_DISABLE_COPY(CutieDesktopFilePhraser)
 };
