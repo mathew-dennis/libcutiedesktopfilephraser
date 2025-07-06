@@ -1,4 +1,4 @@
-#include "cutiedesktopfilephraser_p.h"
+#include "cutiedesktopfilephraser.h"
 #include <QSettings>
 #include <QDir>
 #include <QFileInfo>
@@ -10,19 +10,9 @@ CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
     : QObject(parent) 
 {
     qDebug() << "module - CutieDesktopFilePhraser :  loaded."; 
-    d_ptr = new CutieDesktopFilePhraserPrivate(this); 
 }
 
 CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
-    delete d_ptr;
-}
-
-CutieDesktopFilePhraserPrivate::CutieDesktopFilePhraserPrivate(CutieDesktopFilePhraser *q) : q_ptr(q) {
-    // Constructor implementation
-}
-
-CutieDesktopFilePhraserPrivate::~CutieDesktopFilePhraserPrivate() {
-    // Destructor implementation
 }
 
 QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
