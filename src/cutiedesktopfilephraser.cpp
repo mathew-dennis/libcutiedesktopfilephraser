@@ -1,5 +1,11 @@
 #include "cutiedesktopfilephraser.h"
+#include <QDir>
+#include <QFileInfo>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QDebug>
 
+// ------------------- CutieDesktopFilePhraser -------------------
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
     : QObject(parent)
 {
@@ -8,14 +14,17 @@ CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
 
 CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {}
 
-QAbstractListModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringList &paths) const {
+// Returns a new DesktopEntryModel populated with entries from the given paths
+DesktopEntryModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringList &paths) const {
     auto *model = new DesktopEntryModel(const_cast<CutieDesktopFilePhraser*>(this));
     QList<QVariantMap> entries;
+
     qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : called";
+
     QStringList dataDirList = paths.isEmpty()
         ? QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
         : paths;
-    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : Application directories= " << dataDirList;
+    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : Application directories =" << dataDirList;
 
     for (const QString &directory : dataDirList) {
         QDir dir(directory);
@@ -39,16 +48,18 @@ QAbstractListModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringL
         }
     }
 
-    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : number of entries found = " << entries.size();
-    static_cast<DesktopEntryModel*>(model)->setEntries(entries);
+    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : number of entries found =" << entries.size();
+    model->setEntries(entries);
     return model;
 }
 
+// Singleton instance
 CutieDesktopFilePhraser* CutieDesktopFilePhraser::instance() {
     static CutieDesktopFilePhraser instance;
     return &instance;
 }
 
+// QQmlEngine provider
 QObject* CutieDesktopFilePhraser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
