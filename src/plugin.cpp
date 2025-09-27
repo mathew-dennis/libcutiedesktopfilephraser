@@ -1,8 +1,8 @@
 #include "plugin.h"
 
-void CutieDesktopFileparserPlugin::registerTypes(const char *uri)
+void CutieDesktopFileParserPlugin::registerTypes(const char *uri)
 {
-    qmlRegisterSingletonType<CutieDesktopFileparser>(
-        uri, 1, 0, "CutieDesktopFileparser",
-        &CutieDesktopFileparser::provider);
+    qmlRegisterSingletonType<CutieDesktopFileParser>(
+        uri, 1, 0, "CutieDesktopFileParser",
+        &CutieDesktopFileParser::provider);
 }
