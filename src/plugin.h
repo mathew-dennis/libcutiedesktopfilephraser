@@ -6,13 +6,13 @@
 
 #include "cutiedesktopfileparser.h"
 
-class CutieDesktopFileparserPlugin : public QQmlExtensionPlugin {
+class CutieDesktopFileParserPlugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid FILE
                       "cutiedesktopfileparser.json")
 
 public:
-    explicit CutieDesktopFileparserPlugin() {}
+    explicit CutieDesktopFileParserPlugin() {}
 
     void registerTypes(const char *uri) override;
 };
