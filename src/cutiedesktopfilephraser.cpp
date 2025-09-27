@@ -1,30 +1,30 @@
-#include "cutiedesktopfilephraser.h"
+#include "cutiedesktopfileparser.h"
 #include <QDir>
 #include <QFileInfo>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QDebug>
 
-// ------------------- CutieDesktopFilePhraser -------------------
-CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
+// ------------------- CutieDesktopFileParser -------------------
+CutieDesktopFileParser::CutieDesktopFileParser(QObject *parent)
     : QObject(parent)
 {
-    qDebug() << "module - CutieDesktopFilePhraser : loaded.";
+    qDebug() << "module - CutieDesktopFileParser : loaded.";
 }
 
-CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {}
+CutieDesktopFileParser::~CutieDesktopFileParser() {}
 
 // Returns a new DesktopEntryModel populated with entries from the given paths
-DesktopEntryModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringList &paths) const {
-    auto *model = new DesktopEntryModel(const_cast<CutieDesktopFilePhraser*>(this));
+DesktopEntryModel* CutieDesktopFileParser::fetchAllEntriesModel(const QStringList &paths) const {
+    auto *model = new DesktopEntryModel(const_cast<CutieDesktopFileParser*>(this));
     QList<QVariantMap> entries;
 
-    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : called";
+    qDebug() << "module - CutieDesktopFileParser - fetchAllEntriesModel() : called";
 
     QStringList dataDirList = paths.isEmpty()
         ? QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
         : paths;
-    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : Application directories =" << dataDirList;
+    qDebug() << "module - CutieDesktopFileParser - fetchAllEntriesModel() : Application directories =" << dataDirList;
 
     for (const QString &directory : dataDirList) {
         QDir dir(directory);
@@ -48,20 +48,20 @@ DesktopEntryModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringLi
         }
     }
 
-    qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : number of entries found =" << entries.size();
+    qDebug() << "module - CutieDesktopFileParser - fetchAllEntriesModel() : number of entries found =" << entries.size();
     model->setEntries(entries);
     return model;
 }
 
 // Singleton instance
-CutieDesktopFilePhraser* CutieDesktopFilePhraser::instance() {
-    static CutieDesktopFilePhraser instance;
+CutieDesktopFileParser* CutieDesktopFileParser::instance() {
+    static CutieDesktopFileParser instance;
     return &instance;
 }
 
 // QQmlEngine provider
-QObject* CutieDesktopFilePhraser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
+QObject* CutieDesktopFileParser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
-    return CutieDesktopFilePhraser::instance();
+    return CutieDesktopFileParser::instance();
 }

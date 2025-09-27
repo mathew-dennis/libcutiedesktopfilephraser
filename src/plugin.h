@@ -4,15 +4,15 @@
 #include <QtQml/qqml.h>
 #include <QtQml/QQmlExtensionPlugin>
 
-#include "cutiedesktopfilephraser.h"
+#include "cutiedesktopfileparser.h"
 
-class CutieDesktopFilePhraserPlugin : public QQmlExtensionPlugin {
+class CutieDesktopFileparserPlugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid FILE
-                      "cutiedesktopfilephraser.json")
+                      "cutiedesktopfileparser.json")
 
 public:
-    explicit CutieDesktopFilePhraserPlugin() {}
+    explicit CutieDesktopFileparserPlugin() {}
 
     void registerTypes(const char *uri) override;
 };

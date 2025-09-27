@@ -64,19 +64,19 @@ private:
     QList<QVariantMap> m_entries;
 };
 
-// ---- Main phraser class ----
-class CutieDesktopFilePhraser : public QObject {
+// ---- Main Parser class ----
+class CutieDesktopFileParser : public QObject {
     Q_OBJECT
 
 public:
-    explicit CutieDesktopFilePhraser(QObject *parent = nullptr);
-    ~CutieDesktopFilePhraser();
+    explicit CutieDesktopFileParser(QObject *parent = nullptr);
+    ~CutieDesktopFileParser();
 
     Q_INVOKABLE DesktopEntryModel* fetchAllEntriesModel(const QStringList &paths = {}) const;
 
-    static CutieDesktopFilePhraser* instance();
+    static CutieDesktopFileParser* instance();
     static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
 private:
-    Q_DISABLE_COPY(CutieDesktopFilePhraser)
+    Q_DISABLE_COPY(CutieDesktopFileParser)
 };
