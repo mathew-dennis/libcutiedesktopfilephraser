@@ -1,66 +1,55 @@
 #include "cutiedesktopfilephraser.h"
-#include <QSettings>
-#include <QDir>
-#include <QFileInfo>
-#include <QStandardPaths>
-#include <QTextStream>
-#include <QDebug>
 
 CutieDesktopFilePhraser::CutieDesktopFilePhraser(QObject *parent)
-    : QObject(parent) 
+    : QObject(parent)
 {
-    qDebug() << "module - CutieDesktopFilePhraser :  loaded."; 
+    qDebug() << "module - CutieDesktopFilePhraser : loaded.";
 }
 
-CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {
-}
+CutieDesktopFilePhraser::~CutieDesktopFilePhraser() {}
 
-QVariantList CutieDesktopFilePhraser::fetchAllEntries() const {
+QAbstractListModel* CutieDesktopFilePhraser::fetchAllEntriesModel(const QStringList &paths) const {
+    auto *model = new DesktopEntryModel(const_cast<CutieDesktopFilePhraser*>(this));
+    QList<QVariantMap> entries;
     qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : called";
-    QVariantList entries;
-
-    // Get standard application locations
-    QStringList dataDirList = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
+    QStringList dataDirList = paths.isEmpty()
+        ? QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
+        : paths;
     qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : Application directories= " << dataDirList;
 
     for (const QString &directory : dataDirList) {
         QDir dir(directory);
-        if (dir.exists()) {
-            QStringList filters;
-            filters << "*.desktop";
-            QFileInfoList files = dir.entryInfoList(filters, QDir::Files);
+        if (!dir.exists()) continue;
 
-            for (const QFileInfo &fileInfo : files) {
-                QSettings desktopFile(fileInfo.absoluteFilePath(), QSettings::IniFormat);
-                QString desktopType = desktopFile.value("Desktop Entry/Type").toString();
+        QFileInfoList files = dir.entryInfoList(QStringList{"*.desktop"}, QDir::Files);
+        for (const QFileInfo &fileInfo : files) {
+            QSettings desktopFile(fileInfo.absoluteFilePath(), QSettings::IniFormat);
+            QString type = desktopFile.value("Desktop Entry/Type").toString();
+            if (type != "Application") continue;
 
-                if (desktopType == "Application") {
-                    QVariantMap appData;
-                    QStringList keys = desktopFile.allKeys();
-                    for (const QString &key : keys) {
-                        appData.insert(key, desktopFile.value(key));
-                    }
+            QString hidden = desktopFile.value("Desktop Entry/Hidden").toString();
+            QString noDisplay = desktopFile.value("Desktop Entry/NoDisplay").toString();
+            if (hidden == "true" || noDisplay == "true") continue;
 
-                    QString appHidden = desktopFile.value("Desktop Entry/Hidden").toString();
-                    QString appNoDisplay = desktopFile.value("Desktop Entry/NoDisplay").toString();
+            QVariantMap appData;
+            for (const QString &key : desktopFile.allKeys())
+                appData.insert(key, desktopFile.value(key));
 
-                    if (appHidden != "true" && appNoDisplay != "true") {
-                        entries.append(appData);
-                    }
-                }
-            }
+            entries.append(appData);
         }
     }
+
     qDebug() << "module - CutieDesktopFilePhraser - fetchAllEntries() : number of entries found = " << entries.size();
-    return entries;
+    static_cast<DesktopEntryModel*>(model)->setEntries(entries);
+    return model;
 }
 
-CutieDesktopFilePhraser *CutieDesktopFilePhraser::instance() {
+CutieDesktopFilePhraser* CutieDesktopFilePhraser::instance() {
     static CutieDesktopFilePhraser instance;
     return &instance;
 }
 
-QObject *CutieDesktopFilePhraser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
+QObject* CutieDesktopFilePhraser::provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
     return CutieDesktopFilePhraser::instance();
