@@ -13,6 +13,7 @@ cmake ..
 make
 sudo make install
 ```
+## Using Function
 There are two ways to call fetchAllEntriesModel():
 
 1. Default application locations
@@ -26,11 +27,12 @@ ListView {
 }
 ```
 
-```
+
 2. Custom paths (e.g., autostart)
 
 Fetches desktop entries from specific directories, such as autostart folders:
 
+```
 ListView {
     model: CutieDesktopFilePhraser.fetchAllEntriesModel(["/etc/xdg/autostart", "~/.config/autostart"])
     delegate: Text { text: name }
